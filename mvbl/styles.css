@@ -1,0 +1,20 @@
+.navigation-wrapper {
+  margin: 0px;
+  border: 0px;
+}
+
+.navigation-wrapper {
+  background-color: #00010e;
+  color: #cbcbcb;
+  font-family: "Ubuntu Condensed", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 300px;
+  margin: -4px;
+}
+
+.links-wrapper > .nav-link {
+  color: #cbcbcb;
+}
