@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
   }
-
+   
   canvas {
     background-color: #242038;
     border: 2px solid #d6edff;
@@ -78,8 +78,7 @@ let doodle = {
 
 function setDoodleToDefault() {
   doodle = {
-    width: 40,
-    height: 60,
+    radius: 30,
     x: CANVAS.width / 2 - 20,
     y: PLATFORM_START - 65,
 
@@ -153,11 +152,11 @@ function loop() {
   doodle.x += doodle.dx;
 
   // make doodle wrap the screen
-  if (doodle.x + doodle.width < 0) {
+  if (doodle.x + doodle.radius < 0) {
     doodle.x = CANVAS.width;
   }
   else if (doodle.x > CANVAS.width) {
-    doodle.x = -doodle.width;
+    doodle.x = -doodle.radius;
   }
 
   if (doodle.y > CANVAS.height) {
@@ -177,26 +176,34 @@ function loop() {
       doodle.dy > 0 &&
 
       // doodle was previous above the platform
-      prevDoodleY + doodle.height <= platform.y &&
+      prevDoodleY + doodle.radius <= platform.y &&
 
       // doodle collides with platform
       // (Axis Aligned Bounding Box [AABB] collision check)
       doodle.x < platform.x + PLATFORM_WIDTH &&
-      doodle.x + doodle.width > platform.x &&
+      doodle.x + doodle.radius > platform.x &&
       doodle.y < platform.y + PLATFORM_HEIGHT &&
-      doodle.y + doodle.height > platform.y
+      doodle.y + doodle.radius > platform.y
     ) {
       // reset doodle position so it's on top of the platform
-      doodle.y = platform.y - doodle.height;
+      doodle.y = platform.y - doodle.radius;
       doodle.dy = BOUNCE_VELOCITY;
     }
   });
 
-  // draw doodle
-  CONTEXT.fillStyle = DOODLE_COLOR;
-  CONTEXT.fillRect(doodle.x, doodle.y, doodle.width, doodle.height);
+  let radius = 50;
 
-  prevDoodleY = doodle.y;
+  // Draw the circle
+  CONTEXT.beginPath();  
+  CONTEXT.arc(doodle.x, doodle.y, doodle.radius, 0, 2 * Math.PI);  
+  CONTEXT.fillStyle = 'blue';  
+  CONTEXT.fill();  
+  CONTEXT.lineWidth = 2;
+  CONTEXT.strokeStyle = 'black';  
+  CONTEXT.stroke();  
+  CONTEXT.closePath();  
+
+  prevDoodleY = doodle.y; 
 
   // remove any platforms that have gone offscreen
   platforms = platforms.filter(function(platform) {
@@ -228,6 +235,7 @@ function reset() {
     DOODLE_IS_OFF_SCREEN = false 
 }
 
+
 // listen to keyboard events to move doodle
 document.addEventListener('keydown', function(e) {
   // left arrow key
@@ -237,8 +245,13 @@ document.addEventListener('keydown', function(e) {
     doodle.dx = -3;
 
   }
+
+  // up arrow key
+  if (e.which === 38){
+    doodle.y -= 85     
+  }
   // right arrow key
-  else if (e.which === 39) {
+   if (e.which === 39) {
     keydown = true;
     playerDir = 1;
     doodle.dx = 3;
