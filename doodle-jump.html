@@ -78,7 +78,8 @@ let doodle = {
 
 function setDoodleToDefault() {
   doodle = {
-    radius: 30,
+    width: 40,
+    height: 40,
     x: CANVAS.width / 2 - 20,
     y: PLATFORM_START - 65,
 
@@ -152,11 +153,11 @@ function loop() {
   doodle.x += doodle.dx;
 
   // make doodle wrap the screen
-  if (doodle.x + doodle.radius < 0) {
+  if (doodle.x + doodle.width < 0) {
     doodle.x = CANVAS.width;
   }
   else if (doodle.x > CANVAS.width) {
-    doodle.x = -doodle.radius;
+    doodle.x = -doodle.width;
   }
 
   if (doodle.y > CANVAS.height) {
@@ -176,32 +177,96 @@ function loop() {
       doodle.dy > 0 &&
 
       // doodle was previous above the platform
-      prevDoodleY + doodle.radius <= platform.y &&
+      prevDoodleY + doodle.height <= platform.y &&
 
       // doodle collides with platform
       // (Axis Aligned Bounding Box [AABB] collision check)
       doodle.x < platform.x + PLATFORM_WIDTH &&
-      doodle.x + doodle.radius > platform.x &&
+      doodle.x + doodle.width > platform.x &&
       doodle.y < platform.y + PLATFORM_HEIGHT &&
-      doodle.y + doodle.radius > platform.y
+      doodle.y + doodle.height > platform.y
     ) {
       // reset doodle position so it's on top of the platform
-      doodle.y = platform.y - doodle.radius;
+      doodle.y = platform.y - doodle.height;
       doodle.dy = BOUNCE_VELOCITY;
     }
   });
 
-  let radius = 50;
+
+  // Draw cape 
+  CONTEXT.beginPath()
+  CONTEXT.lineWidth = 40;
+  CONTEXT.strokeStyle = 'red';
+  CONTEXT.moveTo(doodle.x, doodle.y)
+  CONTEXT.lineTo(doodle.x, doodle.y +32)
+  CONTEXT.stroke()
+
+  // Finnish the cape
+  CONTEXT.beginPath()
+  CONTEXT.lineWidth = 20;
+  CONTEXT.moveTo(doodle.x +19, doodle.y -20)
+  CONTEXT.lineTo(doodle.x +30, doodle.y +30)
+  CONTEXT.moveTo(doodle.x -19, doodle.y -20)
+  CONTEXT.lineTo(doodle.x -30, doodle.y +30)
+  CONTEXT.stroke()
+
 
   // Draw the circle
   CONTEXT.beginPath();  
   CONTEXT.arc(doodle.x, doodle.y, doodle.radius, 0, 2 * Math.PI);  
-  CONTEXT.fillStyle = 'blue';  
+  CONTEXT.fillStyle = '#478978';  
   CONTEXT.fill();  
   CONTEXT.lineWidth = 2;
   CONTEXT.strokeStyle = 'black';  
   CONTEXT.stroke();  
-  CONTEXT.closePath();  
+  CONTEXT.closePath();
+
+  CONTEXT.arc(doodle.x, doodle.y, 30, 0, 10 * Math.PI);
+  CONTEXT.arc(doodle.x, doodle.y, 10, 0, 2 * Math.PI);
+  CONTEXT.fillStyle = '#30c';
+  CONTEXT.fill();
+  CONTEXT.stroke();
+
+  // Draw pupils
+  CONTEXT.beginPath();
+  CONTEXT.arc(doodle.x, doodle.y, 5, 0, 2 * Math.PI);
+  CONTEXT.arc(doodle.x, doodle.y, 5, 0, 2 * Math.PI);
+  CONTEXT.fillStyle = 'white';
+  CONTEXT.fill();
+
+  // Draw mouth
+  CONTEXT.beginPath();
+  CONTEXT.arc(doodle.x, doodle.y, 5, 5, Math.PI);
+  CONTEXT.fillStyle = 'black';
+  CONTEXT.fill();
+  CONTEXT.stroke();
+
+  // Cover up unwanted line
+  CONTEXT.beginPath();
+  CONTEXT.strokeStyle = '#30c';
+  CONTEXT.lineWidth = 4
+  CONTEXT.moveTo(doodle.x +11, doodle.y)
+  CONTEXT.lineTo(doodle.x +29,doodle.y)
+  CONTEXT.stroke()
+
+  // Draw arms
+  CONTEXT.beginPath();
+  CONTEXT.strokeStyle = 'black';
+  CONTEXT.lineWidth = 10
+  CONTEXT.moveTo(doodle.x -26, doodle.y)
+  CONTEXT.lineTo(doodle.x -26,doodle.y -45)
+  CONTEXT.moveTo(doodle.x +26, doodle.y -45)
+  CONTEXT.lineTo(doodle.x +26,doodle.y)
+  CONTEXT.stroke()
+
+  // Draw legs 
+  CONTEXT.beginPath();
+  CONTEXT.lineWidth = 10
+  CONTEXT.moveTo(doodle.x -8, doodle.y +28)
+  CONTEXT.lineTo(doodle.x -8,doodle.y +40)
+  CONTEXT.moveTo(doodle.x +8, doodle.y +28)
+  CONTEXT.lineTo(doodle.x +8,doodle.y +40)
+  CONTEXT.stroke()
 
   prevDoodleY = doodle.y; 
 
