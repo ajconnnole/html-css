@@ -311,6 +311,11 @@ document.addEventListener('keydown', function(e) {
 
   }
 
+  if (e.which === 80){
+    cancelAnimationFrame(ANIMATION_FRAME) 
+    DOODLE_IS_OFF_SCREEN = true   
+  }
+
   // up arrow key
   if (e.which === 38){
     doodle.y -= 85     
@@ -322,6 +327,7 @@ document.addEventListener('keydown', function(e) {
     playerDir = 1;
     doodle.dx = 3;
   }
+
   else if (e.which === 32) {
     if (DOODLE_IS_OFF_SCREEN) {
         reset()
