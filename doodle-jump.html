@@ -94,6 +94,20 @@ let playerDir = 0;
 let keydown = false;
 let prevDoodleY = doodle.y;
 let ANIMATION_FRAME;
+let gameScore = 0;
+
+
+// we need to add ids to platforms
+function hitsHigherPlatform(){
+
+  return false 
+}
+
+function writeScore() {
+  CONTEXT.fillStyle = "#dde1e4"
+  CONTEXT.font = "45px nature beauty"
+  CONTEXT.fillText(gameScore, 390, 50)
+}
 
 // game loop
 function loop() {
@@ -189,6 +203,9 @@ function loop() {
       // reset doodle position so it's on top of the platform
       doodle.y = platform.y - doodle.height;
       doodle.dy = BOUNCE_VELOCITY;
+      if (hitsHigherPlatform()) {
+        gameScore += 1
+      }
     }
   });
 
@@ -201,7 +218,7 @@ function loop() {
   CONTEXT.lineTo(doodle.x, doodle.y +32)
   CONTEXT.stroke()
 
-  // Finnish the cape
+  // finish cape
   CONTEXT.beginPath()
   CONTEXT.lineWidth = 20;
   CONTEXT.moveTo(doodle.x +19, doodle.y -20)
@@ -267,6 +284,8 @@ function loop() {
   CONTEXT.moveTo(doodle.x +8, doodle.y +28)
   CONTEXT.lineTo(doodle.x +8,doodle.y +40)
   CONTEXT.stroke()
+
+  writeScore()
 
   prevDoodleY = doodle.y; 
 
