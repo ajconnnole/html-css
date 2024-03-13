@@ -45,9 +45,12 @@ let MIN_PLATFORM_SPACE = 10;
 let MAX_PLATFORM_SPACE = 150;
 const CANVAS_EDGE_BUFFER = 25;
 
+let LAST_ID = 1 
+
 const STARTING_PLATFORM = {
   x: CANVAS.width / 2 - PLATFORM_WIDTH / 2,
-  y: PLATFORM_START
+  y: PLATFORM_START, 
+  id:LAST_ID
 }
 
 // information about each platform. the first platform starts in the
@@ -67,7 +70,7 @@ function fillPlatformsArray(){
     y -= PLATFORM_HEIGHT + randomNumBetweenMinAndMax(MIN_PLATFORM_SPACE, MAX_PLATFORM_SPACE);
 
     let x = randomNumBetweenMinAndMax(CANVAS_EDGE_BUFFER, CANVAS.width - CANVAS_EDGE_BUFFER - PLATFORM_WIDTH);
-    platforms.push({ x, y });
+    platforms.push({ x, y, id:Math.random() });
   }
 }
 
@@ -98,15 +101,19 @@ let gameScore = 0;
 
 
 // we need to add ids to platforms
-function hitsHigherPlatform(){
-
+function hitsHigherPlatform(platform){
+  console.log(LAST_ID, platform.id)
+  if (LAST_ID != platform.id ){
+    LAST_ID = platform.id 
+    return true 
+  }
   return false 
 }
 
 function writeScore() {
   CONTEXT.fillStyle = "#dde1e4"
-  CONTEXT.font = "45px nature beauty"
-  CONTEXT.fillText(gameScore, 390, 50)
+  CONTEXT.font = "35px nature beauty"
+  CONTEXT.fillText(gameScore, 450, 50)
 }
 
 // game loop
@@ -128,7 +135,8 @@ function loop() {
     while (platforms[platforms.length - 1].y > 0) {
       platforms.push({
         x: randomNumBetweenMinAndMax(25, CANVAS.width - 25 - PLATFORM_WIDTH),
-        y: platforms[platforms.length - 1].y - (PLATFORM_HEIGHT + randomNumBetweenMinAndMax(MIN_PLATFORM_SPACE, MAX_PLATFORM_SPACE))
+        y: platforms[platforms.length - 1].y - (PLATFORM_HEIGHT + randomNumBetweenMinAndMax(MIN_PLATFORM_SPACE, MAX_PLATFORM_SPACE)),
+        id:Math.random()
       })
 
       // add a bit to the min/max platform space as the player goes up
@@ -203,7 +211,7 @@ function loop() {
       // reset doodle position so it's on top of the platform
       doodle.y = platform.y - doodle.height;
       doodle.dy = BOUNCE_VELOCITY;
-      if (hitsHigherPlatform()) {
+      if (hitsHigherPlatform(platform)) {
         gameScore += 1
       }
     }
@@ -307,7 +315,12 @@ function startGame() {
   requestAnimationFrame(loop)
 }
 
-function resetPlatformsArray(){
+function resetScore(){
+  gameScore = 0
+  LAST_ID = 1 
+}
+
+function resetPlatformsArray(){ 
   STARTING_PLATFORM.y = PLATFORM_START
   platforms = [STARTING_PLATFORM]
 }
@@ -317,6 +330,7 @@ function reset() {
     resetPlatformsArray()
     startGame()
     DOODLE_IS_OFF_SCREEN = false 
+    resetScore()
 }
 
 
