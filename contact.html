@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="styles/page-container.css" />
     <link rel="stylesheet" href="styles/helpers.css" />
     <link rel="stylesheet" href="styles/contact.css" />
+    <link rel="stylesheet" href="styles/form.css" />
+
 
     
 
@@ -96,15 +98,18 @@
 
         <div class="form">
           <div class="form-group">
-            name
+            <input type="text" id="fullName" placeholder="Your name">
+            <label for="fullName">Your name</label>
           </div>
 
           <div class="form-group">
-            email
+            <input type="email" id="email" placeholder="email">
+            <label for="email">email</label>
           </div>
 
           <div class="form-group">
-            message
+            <textarea name="message" id="message" placeholder="message"></textarea>
+            <label for="message">message</label>
           </div>
 
           <div class="centered-btn-wrapper">
