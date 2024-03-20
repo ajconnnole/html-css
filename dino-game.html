@@ -1,92 +1,218 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Dino game</title>
-    <meta charset="UTF-8" />
-    <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-      }
 
-      body {
-        background-color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+<head>
+  <title>Dino game</title>
+  <meta charset="UTF-8" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
 
-      canvas {
-        background-color: #242038;
-        border: 2px solid #d6edff;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas width="500" height="667" id="game"></canvas>
-    <script>
-      const CANVAS = document.getElementById("game");
-      const CONTEXT = CANVAS.getContext("2d");
-      const LEVELS = [
-        {
-          name: "Level 1",
-          finish: {
-            x: CANVAS.width - 65,
-            y: CANVAS.height - 65,
-            width: 45,
-            height: 45,
-          },
-          platforms: [{ x: 10, y: 10 }],
-          start: {
-            x: 100,
-            y: 100,
-          },
+    body {
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas {
+      background-color: #242038;
+      border: 2px solid #d6edff;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="900" height="600" id="game"></canvas>
+  <script>
+    const CANVAS = document.getElementById("game");
+    const CONTEXT = CANVAS.getContext("2d");
+    const LEVELS = [
+      {
+        name: "Level 1",
+        finish: {
+          x: CANVAS.width - 65,
+          y: CANVAS.height - 105,
+          width: 45,
+          height: 45,
         },
-        {
-          name: "Level 2",
+        platforms: [{ x: 10, y: 10 }],
+        start: {
+          x: 100,
+          y: 100,
         },
-      ];
+      },
+      {
+        name: "Level 2",
+      },
+    ];
 
-      function drawLevelName(level, x, y){
-        CONTEXT.fillStyle = "white";
-        CONTEXT.font = "17px Arial";
-        CONTEXT.fillText(level, x, y);
+    function drawLevelName(level, x, y) {
+      CONTEXT.fillStyle = "white";
+      CONTEXT.font = "17px Arial";
+      CONTEXT.fillText(level, x, y);
+    }
+
+    function drawMap(map) {
+      map = map ?? DEFAULT_MAP;
+      map.platforms.forEach(drawPlatform)
+    }
+
+    function drawPlatform(platform) {
+      CONTEXT.fillStyle = "#676767"
+      CONTEXT.fillRect(
+        platform.x,
+        platform.y,
+        platform.width,
+        platform.height,
+      )
+    }
+
+    const DEFAULT_MAP = {
+      platforms: [
+        {
+          x: CANVAS.width - 900,
+          y: CANVAS.height - 60,
+          height: 1000,
+          width: 900,
+        }
+      ]
+    }
+
+    drawLevelName("level 1", CANVAS.width - 60, 25)
+
+    let player = {
+      width: 30,
+      height: 30,
+      y: 484,
+      x: 10,
+      direction: {
+        x: 0,
+        y: 0,
+      }
+    };
+
+    function drawFinishPoint(level) {
+      CONTEXT.fillStyle = "#c3c3c3"
+      CONTEXT.fillRect(level.finish.x, level.finish.y, level.finish.width, level.finish.height)
+    }
+
+    function drawLevel(level) {
+      drawLevelName(level.name);
+      drawMap(level.map)
+      drawDino(player.x, player.y);
+      drawFinishPoint(level);
+    }
+
+    const scaleFactor = 0.4;
+
+
+    function drawDino(x, y) {
+      CONTEXT.fillStyle = "#E1D657";
+    CONTEXT.beginPath();
+    CONTEXT.moveTo(x + 40 * scaleFactor, y + 17 * scaleFactor);
+    CONTEXT.lineTo(x + 25 * scaleFactor, y + 6 * scaleFactor);
+    CONTEXT.lineTo(x + 60 * scaleFactor, y - 10 * scaleFactor);
+    CONTEXT.fill();
+
+    CONTEXT.beginPath();
+    CONTEXT.moveTo(x + 35 * scaleFactor, y);
+    CONTEXT.lineTo(x + 25 * scaleFactor, y - 5 * scaleFactor);
+    CONTEXT.lineTo(x + 70 * scaleFactor, y - 25 * scaleFactor);
+    CONTEXT.fill();
+
+    CONTEXT.beginPath();
+    CONTEXT.moveTo(x + 80 * scaleFactor, y + 50 * scaleFactor);
+    CONTEXT.lineTo(x + 60 * scaleFactor, y);
+    CONTEXT.lineTo(x + 25 * scaleFactor, y + 20 * scaleFactor);
+    CONTEXT.fill();
+
+    // Cover up spike
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 35 * scaleFactor, y - 11 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+    CONTEXT.fillRect(x + 35 * scaleFactor, y - 12 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+
+    // Head
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 40 * scaleFactor, y - 30 * scaleFactor, 100 * scaleFactor, 20 * scaleFactor);
+    CONTEXT.fillRect(x + 45 * scaleFactor, y - 35 * scaleFactor, 87 * scaleFactor, 5 * scaleFactor);
+    CONTEXT.fillRect(x + 35 * scaleFactor, y - 10 * scaleFactor, 130 * scaleFactor, 40 * scaleFactor);
+    CONTEXT.fillRect(x + 38 * scaleFactor, y + 30 * scaleFactor, 115 * scaleFactor, 10 * scaleFactor);
+
+    // Shirt
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 50 * scaleFactor, y + 40 * scaleFactor, 80 * scaleFactor, 60 * scaleFactor);
+
+    // Pants
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 60 * scaleFactor, y + 100 * scaleFactor, 60 * scaleFactor, 30 * scaleFactor);
+
+    // Shoes
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 70 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+    CONTEXT.fillRect(x + 100 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+
+    // Tail
+    CONTEXT.fillStyle = "#75BF81";
+    CONTEXT.fillRect(x + 35 * scaleFactor, y + 85 * scaleFactor, 30 * scaleFactor, 30 * scaleFactor);
+    CONTEXT.fillRect(x + 15 * scaleFactor, y + 95 * scaleFactor, 30 * scaleFactor, 20 * scaleFactor);
+    CONTEXT.fillRect(x + 5 * scaleFactor, y + 105 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+    CONTEXT.fillRect(x + 40 * scaleFactor, y + 110 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+
+    // Mouth
+    CONTEXT.fillStyle = "black";
+    CONTEXT.fillRect(x + 140 * scaleFactor, y + 30 * scaleFactor, 25 * scaleFactor, 1 * scaleFactor);
+
+    // Nose
+    CONTEXT.fillStyle = "black";
+    CONTEXT.fillRect(x + 155 * scaleFactor, y - 7 * scaleFactor, 7 * scaleFactor, 7 * scaleFactor);
+
+    // Arms
+    CONTEXT.fillStyle = "#54865C";
+    CONTEXT.fillRect(x + 110 * scaleFactor, y + 50 * scaleFactor, 30 * scaleFactor, 5 * scaleFactor);
+    CONTEXT.fillRect(x + 115 * scaleFactor, y + 50 * scaleFactor, 25 * scaleFactor, 10 * scaleFactor);
+
+    CONTEXT.fillStyle = "#656565";
+    CONTEXT.fillRect(x + 140 * scaleFactor, y + 52 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+    CONTEXT.fillRect(x + 140 * scaleFactor, y + 50 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+
+    // Draw eye
+    CONTEXT.beginPath();
+    CONTEXT.arc(x + 110 * scaleFactor, y - 2 * scaleFactor, 19 * scaleFactor, 0, Math.PI * 2, false);
+    CONTEXT.fillStyle = 'white'; // White eye
+    CONTEXT.fill();
+    CONTEXT.closePath();
+
+    CONTEXT.beginPath();
+    CONTEXT.arc(x + 115 * scaleFactor, y - 2 * scaleFactor, 9 * scaleFactor, 0, Math.PI * 2, false);
+    CONTEXT.fillStyle = 'black'; // "black" pupil
+    CONTEXT.fill();
+    CONTEXT.closePath();
+  }
+
+
+
+    document.addEventListener("keydown", function (e) {
+      if (e.which === 37) {
+        // moveLeft
       }
 
-        drawLevelName("level 1", CANVAS.width - 60, 25)
+      else if (e.which === 39) {
+        // moveRight
+      }
 
-        let player = {
-            width: 30,
-            height: 30,
-            y: CANVAS.height,
-            x: 10,
-            direction: {
-                x: 0,
-                y: 0,
-            }
-        };
+      else if (e.which === 38) {
+        // jump
+      }
+    })
 
-        function drawPlayer(level){
-           CONTEXT.fillStyle = "white"; // change color
-           CONTEXT.fillRect(level.start.x, level.start.y, player.width, player.height) 
-        }
+    drawLevel(LEVELS[0])
 
 
-        function drawFinishPoint(level){
-            CONTEXT.fillStyle = "#c3c3c3"
-            CONTEXT.fillRect(level.finish.x, level.finish.y, level.finish.width, level.finish.height)
-        }
+  </script>
+</body>
 
-        function drawLevel(level) {
-            drawLevelName(level.name);
-            drawPlayer(level);
-            drawFinishPoint(level);
-        }
-
-        drawLevel(LEVELS[0])
-
-        
-    </script>
-  </body>
 </html>
