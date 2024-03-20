@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinosaur Drawing</title>
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // Set canvas size
+  canvas.width = 400;
+  canvas.height = 400;
+
+  // Set scale factor
+  const scaleFactor = .2;
+
+  // Draw function
+  function drawDinosaur(x, y) {
+    // Draw spikes
+    ctx.fillStyle = "#E1D657";
+    ctx.beginPath();
+    ctx.moveTo(x + 40 * scaleFactor, y + 17 * scaleFactor);
+    ctx.lineTo(x + 25 * scaleFactor, y + 6 * scaleFactor);
+    ctx.lineTo(x + 60 * scaleFactor, y - 10 * scaleFactor);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(x + 35 * scaleFactor, y);
+    ctx.lineTo(x + 25 * scaleFactor, y - 5 * scaleFactor);
+    ctx.lineTo(x + 70 * scaleFactor, y - 25 * scaleFactor);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(x + 80 * scaleFactor, y + 50 * scaleFactor);
+    ctx.lineTo(x + 60 * scaleFactor, y);
+    ctx.lineTo(x + 25 * scaleFactor, y + 20 * scaleFactor);
+    ctx.fill();
+
+    // Cover up spike
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 35 * scaleFactor, y - 11 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+    ctx.fillRect(x + 35 * scaleFactor, y - 12 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+
+    // Head
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 40 * scaleFactor, y - 30 * scaleFactor, 100 * scaleFactor, 20 * scaleFactor);
+    ctx.fillRect(x + 45 * scaleFactor, y - 35 * scaleFactor, 87 * scaleFactor, 5 * scaleFactor);
+    ctx.fillRect(x + 35 * scaleFactor, y - 10 * scaleFactor, 130 * scaleFactor, 40 * scaleFactor);
+    ctx.fillRect(x + 38 * scaleFactor, y + 30 * scaleFactor, 115 * scaleFactor, 10 * scaleFactor);
+
+    // Shirt
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 50 * scaleFactor, y + 40 * scaleFactor, 80 * scaleFactor, 60 * scaleFactor);
+
+    // Pants
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 60 * scaleFactor, y + 100 * scaleFactor, 60 * scaleFactor, 30 * scaleFactor);
+
+    // Shoes
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 70 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+    ctx.fillRect(x + 100 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+
+    // Tail
+    ctx.fillStyle = "#75BF81";
+    ctx.fillRect(x + 35 * scaleFactor, y + 85 * scaleFactor, 30 * scaleFactor, 30 * scaleFactor);
+    ctx.fillRect(x + 15 * scaleFactor, y + 95 * scaleFactor, 30 * scaleFactor, 20 * scaleFactor);
+    ctx.fillRect(x + 5 * scaleFactor, y + 105 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+    ctx.fillRect(x + 40 * scaleFactor, y + 110 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+
+    // Mouth
+    ctx.fillStyle = "black";
+    ctx.fillRect(x + 140 * scaleFactor, y + 30 * scaleFactor, 25 * scaleFactor, 1 * scaleFactor);
+
+    // Nose
+    ctx.fillStyle = "black";
+    ctx.fillRect(x + 155 * scaleFactor, y - 7 * scaleFactor, 7 * scaleFactor, 7 * scaleFactor);
+
+    // Arms
+    ctx.fillStyle = "#54865C";
+    ctx.fillRect(x + 110 * scaleFactor, y + 50 * scaleFactor, 30 * scaleFactor, 5 * scaleFactor);
+    ctx.fillRect(x + 115 * scaleFactor, y + 50 * scaleFactor, 25 * scaleFactor, 10 * scaleFactor);
+
+    ctx.fillStyle = "#656565";
+    ctx.fillRect(x + 140 * scaleFactor, y + 52 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+    ctx.fillRect(x + 140 * scaleFactor, y + 50 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+
+    // Draw eye
+    ctx.beginPath();
+    ctx.arc(x + 110 * scaleFactor, y - 2 * scaleFactor, 19 * scaleFactor, 0, Math.PI * 2, false);
+    ctx.fillStyle = 'white'; // White eye
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(x + 115 * scaleFactor, y - 2 * scaleFactor, 9 * scaleFactor, 0, Math.PI * 2, false);
+    ctx.fillStyle = 'black'; // "black" pupil
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  drawDinosaur(50, 50);  // Adjust x and y as needed
+</script>
+</body>
+</html>
