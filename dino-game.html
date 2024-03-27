@@ -50,7 +50,7 @@
       },
     ];
 
-    function drawLevelName(level, x, y) {
+    function drawLevelName(level, x = CANVAS.width -70, y = 30) {
       CONTEXT.fillStyle = "white";
       CONTEXT.font = "17px Arial";
       CONTEXT.fillText(level, x, y);
@@ -101,14 +101,13 @@
     }
 
     function drawLevel(level) {
+      drawFinishPoint(level);
       drawLevelName(level.name);
       drawMap(level.map)
-      drawDino(player.x, player.y);
-      drawFinishPoint(level);
+      drawDino(player.x, player.y);      
     }
 
     const scaleFactor = .4;
-
 
     function drawDino(x, y) {
     CONTEXT.fillStyle = "#E1D657";
@@ -193,24 +192,58 @@
     CONTEXT.closePath();
   }
 
+    function moveLeft() {
+      player.direction.x = "left"
+    }
+    
+    function moveRight() {
+      player.direction.x = "right"
+    }
 
+    function jump() {
+      player.direction.y = "up"
+    }
+
+    function loop() {
+      clearScreen()
+      requestAnimationFrame(loop)
+      drawLevel(LEVELS[0])
+      movePlayer()
+    }
+
+    function movePlayer() {
+      if (player.direction.x === "left") {
+          player.x -= 5          
+      } else if (player.direction.x === "right"){
+        player.x += 5
+      }
+    }
+
+    function clearScreen() {
+      CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height)
+    }
 
     document.addEventListener("keydown", function (e) {
       if (e.which === 37) {
-        // moveLeft
+        moveLeft()
       }
 
       else if (e.which === 39) {
-        // moveRight
+        moveRight()
       }
 
       else if (e.which === 38) {
-        // jump
+        jump()
       }
     })
 
-    drawLevel(LEVELS[0])
+    document.addEventListener("keyup", function (e) {
+      if (e.which === 37 || e.which === 39)  {
+        player.direction.x = 0
+      }
+    })
 
+    loop()
 
   </script>
 </body>
