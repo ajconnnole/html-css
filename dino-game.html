@@ -34,10 +34,10 @@
       {
         name: "Level 1",
         finish: {
-          x: CANVAS.width - 65,
-          y: CANVAS.height - 105,
-          width: 45,
-          height: 45,
+          x: CANVAS.width - 80,
+          y: CANVAS.height - 140,
+          width: 70,
+          height: 80,
         },
         platforms: [{ x: 10, y: 10 }],
         start: {
@@ -50,7 +50,7 @@
       },
     ];
 
-    function drawLevelName(level, x = CANVAS.width -70, y = 30) {
+    function drawLevelName(level, x = CANVAS.width - 70, y = 30) {
       CONTEXT.fillStyle = "white";
       CONTEXT.font = "17px Arial";
       CONTEXT.fillText(level, x, y);
@@ -82,7 +82,6 @@
       ]
     }
 
-    drawLevelName("level 1", CANVAS.width - 60, 25)
 
     let player = {
       width: 30,
@@ -104,98 +103,98 @@
       drawFinishPoint(level);
       drawLevelName(level.name);
       drawMap(level.map)
-      drawDino(player.x, player.y);      
+      drawDino(player.x, player.y);
     }
 
     const scaleFactor = .4;
 
     function drawDino(x, y) {
-    CONTEXT.fillStyle = "#E1D657";
-    CONTEXT.beginPath();
-    CONTEXT.moveTo(x + 40 * scaleFactor, y + 17 * scaleFactor);
-    CONTEXT.lineTo(x + 25 * scaleFactor, y + 6 * scaleFactor);
-    CONTEXT.lineTo(x + 60 * scaleFactor, y - 10 * scaleFactor);
-    CONTEXT.fill();
+      CONTEXT.fillStyle = "#E1D657";
+      CONTEXT.beginPath();
+      CONTEXT.moveTo(x + 40 * scaleFactor, y + 17 * scaleFactor);
+      CONTEXT.lineTo(x + 25 * scaleFactor, y + 6 * scaleFactor);
+      CONTEXT.lineTo(x + 60 * scaleFactor, y - 10 * scaleFactor);
+      CONTEXT.fill();
 
-    CONTEXT.beginPath();
-    CONTEXT.moveTo(x + 35 * scaleFactor, y);
-    CONTEXT.lineTo(x + 25 * scaleFactor, y - 5 * scaleFactor);
-    CONTEXT.lineTo(x + 70 * scaleFactor, y - 25 * scaleFactor);
-    CONTEXT.fill();
+      CONTEXT.beginPath();
+      CONTEXT.moveTo(x + 35 * scaleFactor, y);
+      CONTEXT.lineTo(x + 25 * scaleFactor, y - 5 * scaleFactor);
+      CONTEXT.lineTo(x + 70 * scaleFactor, y - 25 * scaleFactor);
+      CONTEXT.fill();
 
-    CONTEXT.beginPath();
-    CONTEXT.moveTo(x + 80 * scaleFactor, y + 50 * scaleFactor);
-    CONTEXT.lineTo(x + 60 * scaleFactor, y);
-    CONTEXT.lineTo(x + 25 * scaleFactor, y + 20 * scaleFactor);
-    CONTEXT.fill();
+      CONTEXT.beginPath();
+      CONTEXT.moveTo(x + 80 * scaleFactor, y + 50 * scaleFactor);
+      CONTEXT.lineTo(x + 60 * scaleFactor, y);
+      CONTEXT.lineTo(x + 25 * scaleFactor, y + 20 * scaleFactor);
+      CONTEXT.fill();
 
-    // Cover up spike
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 35 * scaleFactor, y - 11 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
-    CONTEXT.fillRect(x + 35 * scaleFactor, y - 12 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+      // Cover up spike
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 35 * scaleFactor, y - 11 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
+      CONTEXT.fillRect(x + 35 * scaleFactor, y - 12 * scaleFactor, 10 * scaleFactor, 1 * scaleFactor);
 
-    // Head
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 40 * scaleFactor, y - 30 * scaleFactor, 100 * scaleFactor, 20 * scaleFactor);
-    CONTEXT.fillRect(x + 45 * scaleFactor, y - 35 * scaleFactor, 87 * scaleFactor, 5 * scaleFactor);
-    CONTEXT.fillRect(x + 35 * scaleFactor, y - 10 * scaleFactor, 130 * scaleFactor, 40 * scaleFactor);
-    CONTEXT.fillRect(x + 38 * scaleFactor, y + 30 * scaleFactor, 115 * scaleFactor, 10 * scaleFactor);
+      // Head
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 40 * scaleFactor, y - 30 * scaleFactor, 100 * scaleFactor, 20 * scaleFactor);
+      CONTEXT.fillRect(x + 45 * scaleFactor, y - 35 * scaleFactor, 87 * scaleFactor, 5 * scaleFactor);
+      CONTEXT.fillRect(x + 35 * scaleFactor, y - 10 * scaleFactor, 130 * scaleFactor, 40 * scaleFactor);
+      CONTEXT.fillRect(x + 38 * scaleFactor, y + 30 * scaleFactor, 115 * scaleFactor, 10 * scaleFactor);
 
-    // Shirt
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 50 * scaleFactor, y + 40 * scaleFactor, 80 * scaleFactor, 60 * scaleFactor);
+      // Shirt
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 50 * scaleFactor, y + 40 * scaleFactor, 80 * scaleFactor, 60 * scaleFactor);
 
-    // Pants
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 60 * scaleFactor, y + 100 * scaleFactor, 60 * scaleFactor, 30 * scaleFactor);
+      // Pants
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 60 * scaleFactor, y + 100 * scaleFactor, 60 * scaleFactor, 30 * scaleFactor);
 
-    // Shoes
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 70 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
-    CONTEXT.fillRect(x + 100 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+      // Shoes
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 70 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
+      CONTEXT.fillRect(x + 100 * scaleFactor, y + 130 * scaleFactor, 20 * scaleFactor, 10 * scaleFactor);
 
-    // Tail
-    CONTEXT.fillStyle = "#75BF81";
-    CONTEXT.fillRect(x + 35 * scaleFactor, y + 85 * scaleFactor, 30 * scaleFactor, 30 * scaleFactor);
-    CONTEXT.fillRect(x + 15 * scaleFactor, y + 95 * scaleFactor, 30 * scaleFactor, 20 * scaleFactor);
-    CONTEXT.fillRect(x + 5 * scaleFactor, y + 105 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
-    CONTEXT.fillRect(x + 40 * scaleFactor, y + 110 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+      // Tail
+      CONTEXT.fillStyle = "#75BF81";
+      CONTEXT.fillRect(x + 35 * scaleFactor, y + 85 * scaleFactor, 30 * scaleFactor, 30 * scaleFactor);
+      CONTEXT.fillRect(x + 15 * scaleFactor, y + 95 * scaleFactor, 30 * scaleFactor, 20 * scaleFactor);
+      CONTEXT.fillRect(x + 5 * scaleFactor, y + 105 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
+      CONTEXT.fillRect(x + 40 * scaleFactor, y + 110 * scaleFactor, 30 * scaleFactor, 10 * scaleFactor);
 
-    // Mouth
-    CONTEXT.fillStyle = "black";
-    CONTEXT.fillRect(x + 140 * scaleFactor, y + 30 * scaleFactor, 25 * scaleFactor, 1 * scaleFactor);
+      // Mouth
+      CONTEXT.fillStyle = "black";
+      CONTEXT.fillRect(x + 140 * scaleFactor, y + 30 * scaleFactor, 25 * scaleFactor, 1 * scaleFactor);
 
-    // Nose
-    CONTEXT.fillStyle = "black";
-    CONTEXT.fillRect(x + 155 * scaleFactor, y - 7 * scaleFactor, 7 * scaleFactor, 7 * scaleFactor);
+      // Nose
+      CONTEXT.fillStyle = "black";
+      CONTEXT.fillRect(x + 155 * scaleFactor, y - 7 * scaleFactor, 7 * scaleFactor, 7 * scaleFactor);
 
-    // Arms
-    CONTEXT.fillStyle = "#54865C";
-    CONTEXT.fillRect(x + 110 * scaleFactor, y + 50 * scaleFactor, 30 * scaleFactor, 5 * scaleFactor);
-    CONTEXT.fillRect(x + 115 * scaleFactor, y + 50 * scaleFactor, 25 * scaleFactor, 10 * scaleFactor);
+      // Arms
+      CONTEXT.fillStyle = "#54865C";
+      CONTEXT.fillRect(x + 110 * scaleFactor, y + 50 * scaleFactor, 30 * scaleFactor, 5 * scaleFactor);
+      CONTEXT.fillRect(x + 115 * scaleFactor, y + 50 * scaleFactor, 25 * scaleFactor, 10 * scaleFactor);
 
-    CONTEXT.fillStyle = "#656565";
-    CONTEXT.fillRect(x + 140 * scaleFactor, y + 52 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
-    CONTEXT.fillRect(x + 140 * scaleFactor, y + 50 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+      CONTEXT.fillStyle = "#656565";
+      CONTEXT.fillRect(x + 140 * scaleFactor, y + 52 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
+      CONTEXT.fillRect(x + 140 * scaleFactor, y + 50 * scaleFactor, 8 * scaleFactor, 1 * scaleFactor);
 
-    // Draw eye
-    CONTEXT.beginPath();
-    CONTEXT.arc(x + 110 * scaleFactor, y - 2 * scaleFactor, 19 * scaleFactor, 0, Math.PI * 2, false);
-    CONTEXT.fillStyle = 'white'; // White eye
-    CONTEXT.fill();
-    CONTEXT.closePath();
+      // Draw eye
+      CONTEXT.beginPath();
+      CONTEXT.arc(x + 110 * scaleFactor, y - 2 * scaleFactor, 19 * scaleFactor, 0, Math.PI * 2, false);
+      CONTEXT.fillStyle = 'white'; // White eye
+      CONTEXT.fill();
+      CONTEXT.closePath();
 
-    CONTEXT.beginPath();
-    CONTEXT.arc(x + 115 * scaleFactor, y - 2 * scaleFactor, 9 * scaleFactor, 0, Math.PI * 2, false);
-    CONTEXT.fillStyle = 'black'; // "black" pupil
-    CONTEXT.fill();
-    CONTEXT.closePath();
-  }
+      CONTEXT.beginPath();
+      CONTEXT.arc(x + 115 * scaleFactor, y - 2 * scaleFactor, 9 * scaleFactor, 0, Math.PI * 2, false);
+      CONTEXT.fillStyle = 'black'; // "black" pupil
+      CONTEXT.fill();
+      CONTEXT.closePath();
+    }
 
     function moveLeft() {
       player.direction.x = "left"
     }
-    
+
     function moveRight() {
       player.direction.x = "right"
     }
@@ -204,17 +203,48 @@
       player.direction.y = "up"
     }
 
+    let ANIMATION_FRAME;
+
     function loop() {
       clearScreen()
-      requestAnimationFrame(loop)
+      ANIMATION_FRAME = requestAnimationFrame(loop)
       drawLevel(LEVELS[0])
       movePlayer()
+      checkEndGame()
+    }
+
+    function showSplashScreen(){
+      CONTEXT.fillStyle = "#cbcbcb"
+      CONTEXT.font = "36px Arial"
+      CONTEXT.textAlign = "center"
+      CONTEXT.fillText("You win!", CANVAS.width / 2, CANVAS.height / 3)
+      CONTEXT.font = "15px Arial"
+      CONTEXT.fillText("press 'n' to go to next level", CANVAS.width / 2, CANVAS.height / 3 + 20)
+
+    }
+
+    function endGame() {
+      cancelAnimationFrame(ANIMATION_FRAME)
+      showSplashScreen()
+    }
+
+    function playerIsAtEnd() {
+      if (player.x > LEVELS[0].finish.x && player.x < LEVELS[0].finish.x + LEVELS[0].finish.width) {
+        return true
+      }
+    }
+    // tail is x (change it)
+
+    function checkEndGame() {
+      if (playerIsAtEnd()) {
+        endGame()
+      }
     }
 
     function movePlayer() {
       if (player.direction.x === "left") {
-          player.x -= 5          
-      } else if (player.direction.x === "right"){
+        player.x -= 5
+      } else if (player.direction.x === "right") {
         player.x += 5
       }
     }
@@ -238,7 +268,7 @@
     })
 
     document.addEventListener("keyup", function (e) {
-      if (e.which === 37 || e.which === 39)  {
+      if (e.which === 37 || e.which === 39) {
         player.direction.x = 0
       }
     })
