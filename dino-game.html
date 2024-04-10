@@ -215,11 +215,11 @@
 
     function showSplashScreen(){
       CONTEXT.fillStyle = "#cbcbcb"
-      CONTEXT.font = "36px Arial"
+      CONTEXT.font = "50px Arial"
       CONTEXT.textAlign = "center"
       CONTEXT.fillText("You win!", CANVAS.width / 2, CANVAS.height / 3)
-      CONTEXT.font = "15px Arial"
-      CONTEXT.fillText("press 'n' to go to next level", CANVAS.width / 2, CANVAS.height / 3 + 20)
+      CONTEXT.font = "20px Arial"
+      CONTEXT.fillText("press 'n' to go to next level", CANVAS.width / 2, CANVAS.height / 3 + 25)
 
     }
 
@@ -229,7 +229,7 @@
     }
 
     function playerIsAtEnd() {
-      if (player.x > LEVELS[0].finish.x && player.x < LEVELS[0].finish.x + LEVELS[0].finish.width) {
+      if (player.x + 45 > LEVELS[0].finish.x && player.x + 45 < LEVELS[0].finish.x + LEVELS[0].finish.width) {
         return true
       }
     }
