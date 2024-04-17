@@ -82,6 +82,12 @@
       ]
     }
 
+    const gravity = .25
+
+    const maxFallingSpeed = 8
+
+    let fallingSpeed = 1
+
 
     let player = {
       width: 30,
@@ -93,6 +99,7 @@
         y: 0,
       }
     };
+
 
     function drawFinishPoint(level) {
       CONTEXT.fillStyle = "#c3c3c3"
@@ -201,7 +208,22 @@
 
     function jump() {
       player.direction.y = "up"
+      jumpStart = player.y
     }
+
+    function applyGravity() {
+      if (player.direction.y === "up") { return false }
+      // check if player is on platform 
+      player.y += fallingSpeed;
+      fallingSpeed += gravity
+      if (fallingSpeed >= maxFallingSpeed) {
+        fallingSpeed = maxFallingSpeed
+      }
+    }
+
+    let jumpHeight = CANVAS.height / 5;
+
+    let jumpStart;
 
     let ANIMATION_FRAME;
 
@@ -209,11 +231,12 @@
       clearScreen()
       ANIMATION_FRAME = requestAnimationFrame(loop)
       drawLevel(LEVELS[0])
+      applyGravity()
       movePlayer()
       checkEndGame()
     }
 
-    function showSplashScreen(){
+    function showSplashScreen() {
       CONTEXT.fillStyle = "#cbcbcb"
       CONTEXT.font = "50px Arial"
       CONTEXT.textAlign = "center"
@@ -243,9 +266,15 @@
 
     function movePlayer() {
       if (player.direction.x === "left") {
-        player.x -= 5
+        player.x -= 5;
       } else if (player.direction.x === "right") {
-        player.x += 5
+        player.x += 5;
+      }
+      if (player.direction.y === "up" && player.y > jumpStart - jumpHeight) {
+        player.y -= 5;
+      }
+      if (player.y <= jumpStart - jumpHeight) {
+        player.direction.y = "down";
       }
     }
 
