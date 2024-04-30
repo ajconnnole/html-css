@@ -30,6 +30,24 @@
   <script>
     const CANVAS = document.getElementById("game");
     const CONTEXT = CANVAS.getContext("2d");
+
+    const DEFAULT_MAP = {
+      platforms: [
+        {
+          x: CANVAS.width - 900,
+          y: CANVAS.height - 60,
+          height: 1000,
+          width: 900,
+        },
+        {
+          x: 80,
+          y: CANVAS.height - 300,
+          height: 40,
+          width: 200,
+        }
+      ]
+    }
+
     const LEVELS = [
       {
         name: "Level 1",
@@ -39,7 +57,7 @@
           width: 70,
           height: 80,
         },
-        platforms: [{ x: 10, y: 10 }],
+        map: DEFAULT_MAP,
         start: {
           x: 100,
           y: 100,
@@ -49,6 +67,7 @@
         name: "Level 2",
       },
     ];
+
 
     function drawLevelName(level, x = CANVAS.width - 70, y = 30) {
       CONTEXT.fillStyle = "white";
@@ -69,17 +88,6 @@
         platform.width,
         platform.height,
       )
-    }
-
-    const DEFAULT_MAP = {
-      platforms: [
-        {
-          x: CANVAS.width - 900,
-          y: CANVAS.height - 60,
-          height: 1000,
-          width: 900,
-        }
-      ]
     }
 
     const gravity = .25
@@ -211,9 +219,42 @@
       jumpStart = player.y
     }
 
-    function applyGravity() {
+    function isOnPlatform(platform) {
+      return (
+        itemsOverlapX(player, platform) && itemsOverlapY(player, platform)
+      );
+    }
+    
+    function itemsOverlapX(item1, item2) {
+        return (
+          item1.x < item2.x + item2.width && item1.x + item1.width > item2.x
+        );
+      }
+
+      function itemsOverlapY(item1, item2) {
+        return item1.y < item2.y + item2.height && item1.y > item2.y;
+      }
+
+      function playerIsOnPlatform(platforms) {
+        return platforms.some(isOnPlatform);
+      }
+
+
+    function playerIsTouchingPlatform(platforms) {
+      return platforms.some(isOnPlatform)
+    }
+
+    function stopFalling() {
+      fallingSpeed = 1;
+
+    }
+
+    function applyGravity(platforms) {
       if (player.direction.y === "up") { return false }
-      // check if player is on platform 
+      if (playerIsTouchingPlatform(platforms) === true) {
+        stopFalling();
+        return false;
+      }
       player.y += fallingSpeed;
       fallingSpeed += gravity
       if (fallingSpeed >= maxFallingSpeed) {
@@ -231,7 +272,7 @@
       clearScreen()
       ANIMATION_FRAME = requestAnimationFrame(loop)
       drawLevel(LEVELS[0])
-      applyGravity()
+      applyGravity(LEVELS[0].map.platforms)
       movePlayer()
       checkEndGame()
     }
