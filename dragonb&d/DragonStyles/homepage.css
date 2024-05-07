@@ -1,0 +1,34 @@
+body {
+    margin: 0px;
+}
+
+.header-wrapper {
+    height: 190px;
+    background-color: #63606d;
+    color: #d8ddef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 100px;
+}
+
+.links-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.links-wrapper > .nav-link {
+    width: 70px;
+    text-align: center;
+}
+
+ .links-wrapper >.nav-link a {
+    color: #d8ddef;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.links-wrapper >.nav-link a:hover {
+    color: #68faff ;
+}
