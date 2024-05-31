@@ -48,3 +48,18 @@ body {
     color: #cea135 ;
     letter-spacing: 2px;
 }
+
+.header-wrapper > .right-column {
+    display: flex;
+    text-align: right;
+}
+
+.header-wrapper > .right-column > .email-wrapper > .email-icon i {
+    font-size: 28px
+}
+
+
+.header-wrapper > .right-column a {
+    text-decoration: none;
+    color: #d8ddef;
+}
